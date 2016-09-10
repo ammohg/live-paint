@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="ja">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>WebRTC HandsOn</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    受講者
+    <div class="videoContainer"></div>
+    <div class="canvasContainer">
+        <div id="item">
+            <div id="item3">
+                <p>R<input type="range" min="0" max="255" value="0" class="rgb" id="rgb-r"></p>
+                <p>G<input type="range" min="0" max="255" value="0" class="rgb" id="rgb-g"></p>
+                <p>B<input type="range" min="0" max="255" value="0" class="rgb" id="rgb-b"></p>
+                <p>A<input type="range" min="0" max="100" value="100" id="alpha"><span id="alphaNum">100</span></p>
+            </div>
+            <div id="item1">
+                <p>線の太さ<input type="range" min="0" max="100" value="10" id="lineWidth"><span id="lineNum">10</span></p>
+            </div>
+            <div id="item2">
+                <p><button style="margin-bottom:10px;" id="undo">１つ前の状態に戻す</button></p>
+                <p><button style="width:100px;" id="clear">消去</button> <button style="width:100px;" onclick="save()">保存</button></p>
+                <p><button style="width:100px;" id="copy">お手本からコピー</button></p>
+
+            </div>
+        </div>
+        <canvas id="canvas"></canvas>
+    </div>
+    <div class="commentContainer">
+        <p>
+            <input id="comment" placeholder="コメントを送信">
+            <input id="commentbutton" type="button" value="送信">
+        </p>
+        <p>
+            <input id="sendImage" type="button" value="描いた絵を送信">
+        </p>
+    </div>
+    <script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="https://skyway.io/dist/0.3/peer.min.js"></script>
+    <!--<script type='text/javascript' src='https:////cdn.skyway.io/skyway.js'></script>-->
+    <script type="text/javascript" src="paint.js"></script>
+    <script type="text/javascript" src="listener.js"></script>
+</body>
+
+</html>
