@@ -1,6 +1,7 @@
 {
   "dependencies": {},
   "globalDependencies": {
+    "jquery": "registry:dt/jquery#1.10.0+20160908203239",
     "peerjs": "registry:dt/peerjs#0.0.0+20160317120654",
     "webrtc/rtcpeerconnection": "registry:dt/webrtc/rtcpeerconnection#0.0.0+20160719235950"
   }
