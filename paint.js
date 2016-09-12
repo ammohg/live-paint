@@ -1,6 +1,8 @@
+/// <reference path="typings/index.d.ts" />
 
 $(document).ready(function () {
     //canvasの読み込み設定
+    /** @type {HTMLCanvasElement} */
     var canvas = document.getElementById("canvas");
     canvas.width = 500;
     canvas.height = 400;
@@ -116,9 +118,6 @@ $(document).ready(function () {
         for (var i = 0; i < finger.length; i++) {
             finger[i].x1 = e.touches[i].clientX - rect.left;
             finger[i].y1 = e.touches[i].clientY - rect.top;
-
-
-
         }
     });
 
@@ -136,7 +135,6 @@ $(document).ready(function () {
             ctx.stroke();
             finger[i].x1 = finger[i].x;
             finger[i].y1 = finger[i].y;
-
         }
     });
 
