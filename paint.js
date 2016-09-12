@@ -86,12 +86,12 @@ $(document).ready(function () {
 
 
     //保存する
-    function save() {
+
+    $('#save').click(function () {
         var can = canvas.toDataURL("image/png");
         can = can.replace("image/png", "image/octet-stream");
         window.open(can, "save");
-
-    }
+    });
 
     //スマホ用
     var finger = new Array;
