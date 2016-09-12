@@ -13,9 +13,12 @@ $(document).ready(function () {
     var APIKEY = '9365ae81-9216-4be6-ad80-a49ae077c6fe';
 
     // グローバル変数
-    var callList = [];
     var myPeerid = '';
     var myStream = null;
+    /** @type {MediaConnection[]} */
+    var callList = [];
+    /** @type {PeerJs.DataConnection} */
+    var conn;
 
     // getUserMediaのcompatibility
     navigator.getUserMedia = navigator.getUserMedia ||
@@ -23,7 +26,10 @@ $(document).ready(function () {
         navigator.mozGetUserMedia;
 
     // Peerオブジェクトを生成
-    var peer = new Peer('host', { key: APIKEY, debug: 3 });
+    var peer = new Peer({
+        key: APIKEY,
+        debug: 3
+    });
 
     // エラーハンドラ
     peer.on('error', function (err) {
@@ -53,7 +59,7 @@ $(document).ready(function () {
         $('#myStream').prop('src', URL.createObjectURL(myStream));
 
         connectToPeers();
-        // setInterval(connectToPeers, 2000)
+        setInterval(connectToPeers, 2000)
     });
 
     // callイベント用のハンドラを設置
@@ -67,9 +73,18 @@ $(document).ready(function () {
     function connectToPeers() {
         peer.listAllPeers(function (list) {
             for (var cnt = 0; cnt < list.length; cnt++) {
-                if (myPeerid != list[cnt]) {
+                var isNewPeer = callList.every(function (call) {
+                    return call.peer !== list[cnt];
+                });
+
+                if (myPeerid != list[cnt] && isNewPeer) {
                     var call = peer.call(list[cnt], myStream);
                     addCall(call);
+
+                    call.on('close', function() {
+                        call.close();
+                        removeCall(call);
+                    })
                 }
             }
         });
@@ -87,8 +102,6 @@ $(document).ready(function () {
             callList.splice(position, 1)
         }
     }
-    /** @type {PeerJs.DataConnection} */
-    var conn;
 
     peer.on('open', function () {
         // 自分のIDを表示する
@@ -100,18 +113,14 @@ $(document).ready(function () {
     // 相手からデータ通信の接続要求イベントが来た場合、このconnectionイベントが呼ばれる
     // - 渡されるconnectionオブジェクトを操作することで、データ通信が可能
     peer.on('connection', function (connection) {
-        console.log('つながった')
-
         // データ通信用に connectionオブジェクトを保存しておく
         conn = connection;
 
         // 接続が完了した場合のイベントの設定
         conn.on("open", function () {
-            // 相手のIDを表示する
-            // - 相手のIDはconnectionオブジェクトのidプロパティに存在する
-            $("#peer-id").text(conn.id);
         });
 
+        // メッセージ受信イベントの設定
         conn.on("data", function (data) {
             // 画面に受信したメッセージを表示
             console.log(data)
@@ -120,7 +129,6 @@ $(document).ready(function () {
             else
                 $(".messagesContainer").append($("<img>").attr('src', data.image).attr('width', 100));
         });
-        // メッセージ受信イベントの設定
     });
 });
 

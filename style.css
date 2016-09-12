@@ -4,10 +4,13 @@
 }
 .videoContainer {
     float: left;
+    width: 500px;
+    height: 400px;
 }
 
-#canvas {
+.canvas {
     float: left;
+    box-sizing: border-box;
     width: 500px;
     height: 400px;
     border: 1px solid #eee;
@@ -21,4 +24,18 @@
 
 .commentsContainer {
     float: left;
+}
+
+/*複数配信者がいる場のその場しのぎ*/
+
+.videoContainer {
+    overflow: hidden;
+}
+video {
+    float: left;
+    width: 50%;
+}
+video:first-child:nth-last-child(1),
+video:first-child:nth-last-child(1) ~ video {
+  width: 100%;
 }

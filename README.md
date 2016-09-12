@@ -9,10 +9,7 @@ LivePaintは、ペイントアプリとライブ配信を合わせたサービ�
 ## 使い方
 
 1. 視聴者は[index.html](https://ammohg.github.io/live-paint/index.html)にアクセス
-1. 視聴者が揃ったら、放送者は[host.html](https://ammohg.github.io/live-paint/host.html)にアクセス
-
-[放送者](https://ammohg.github.io/live-paint/host.html)よりも先に[視聴者](https://ammohg.github.io/live-paint/index.html)がアクセスすること。
-現在、後からのアクセスでは視聴できません。
+1. 放送者は[host.html](https://ammohg.github.io/live-paint/host.html)にアクセス
 
 また、通信にWebRTCを使用しています。WebRTC対応ブラウザを使用してください。
 

@@ -13,15 +13,11 @@ $(document).ready(function () {
     // 定数宣言
     var APIKEY = '9365ae81-9216-4be6-ad80-a49ae077c6fe';
 
-    /** @type {PeerJs.DataConnection} */
-    var conn;
-
     // グローバル変数
-    var myPeerid = '';
-    var myStream = null;
-
     /** @type {PeerJs.MediaConnection} */
     var host = null;
+    /** @type {PeerJs.DataConnection} */
+    var conn;
 
     // Peerオブジェクトを生成
     var peer = new Peer({ key: APIKEY, debug: 3 });
@@ -33,7 +29,6 @@ $(document).ready(function () {
 
     // openイベントのハンドラ
     peer.on('open', function (id) {
-        myPeerid = id;
         console.log('My peer ID is: ' + id);
     });
 
@@ -47,18 +42,11 @@ $(document).ready(function () {
 
         setupCallEventHandlers(call);
 
-        console.log('id!!!!!', call.id);
-
-        var peer_id = call.id;
-
         // 相手への接続を開始する
-        conn = peer.connect('host');
+        conn = peer.connect(call.peer);
 
         // 接続が完了した場合のイベントの設定
         conn.on("open", function () {
-            // 相手のIDを表示する
-            // - 相手のIDはconnectionオブジェクトのidプロパティに存在する
-            $("#peer-id").text(conn.id);
         });
 
         // メッセージ受信イベントの設定
