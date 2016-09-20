@@ -48,7 +48,7 @@ $(document).ready(function () {
     });
 
     //クリックを離したら、描画を終了する
-    canvas.addEventListener("mouseup", function (e) {
+    document.addEventListener("mouseup", function (e) {
         draw = false;
     });
 
@@ -88,7 +88,6 @@ $(document).ready(function () {
 
 
     //保存する
-
     $('#save').click(function () {
         var can = canvas.toDataURL("image/png");
         can = can.replace("image/png", "image/octet-stream");
